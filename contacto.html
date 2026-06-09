@@ -420,6 +420,16 @@
       letter-spacing: 0.05em;
     }
   </style>
+
+  <!-- Netlify Forms: form oculto para que Netlify detecte los campos -->
+  <form name="contacto" data-netlify="true" hidden>
+    <input type="text" name="nombre" />
+    <input type="text" name="empresa" />
+    <input type="email" name="email" />
+    <select name="tipo"></select>
+    <textarea name="mensaje"></textarea>
+  </form>
+
 </head>
 <body>
 

@@ -121,3 +121,27 @@ footer {
 
 /* ─── BODY PADDING FOR FIXED NAV ─── */
 body { padding-top: 0; }
+
+/* ════════════════════════════════
+   RESPONSIVE MÓVIL — GLOBAL
+   ════════════════════════════════ */
+@media (max-width: 768px) {
+  nav {
+    padding: 20px 20px 0;
+    align-items: center;
+  }
+
+  .nav-links { gap: 14px; }
+
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  footer {
+    padding: 32px 24px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}

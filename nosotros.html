@@ -196,6 +196,16 @@
       color: var(--cream);
       opacity: 0.75;
     }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 120px 24px 48px; }
+      .page-title { font-size: clamp(52px, 14vw, 80px); }
+      .content-section { padding: 48px 24px; }
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .manifesto { padding: 32px 24px; margin: 0 24px; }
+      .manifesto-quote { font-size: clamp(20px, 5vw, 28px); }
+    }
   </style>
 </head>
 <body>

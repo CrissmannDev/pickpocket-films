@@ -115,10 +115,31 @@
     .project-bg {
       position: absolute;
       inset: 0;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow: hidden;
     }
 
-    .project-card:hover .project-bg { transform: scale(1.06); }
+    /* La imagen llena toda la tarjeta centrada */
+    .project-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: grayscale(1) brightness(0.6);
+      transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .project-card:hover .project-bg img {
+      filter: grayscale(0) brightness(0.75);
+      transform: scale(1.06);
+    }
+
+    .project-bg-fallback {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1208 0%, #0a0804 100%);
+      z-index: -1;
+    }
 
     /* Unique color palette for each project */
     .project-card:nth-child(1) .project-bg { background: linear-gradient(135deg, #1a1208 0%, #0a0804 100%); }
@@ -264,12 +285,21 @@
     .lb-frame {
       width: 100%;
       aspect-ratio: 16/9;
-      background: #111;
+      background: #000;
       margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(201,168,76,0.1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(155,45,70,0.15);
+    }
+
+    /* iframe ocupa todo el frame */
+    .lb-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
     .lb-play {
@@ -306,6 +336,53 @@
       line-height: 1.7;
       color: var(--cream);
       opacity: 0.75;
+    }
+
+    /* ════════════════════
+       RESPONSIVE MÓVIL
+       ════════════════════ */
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 120px 24px 48px;
+      }
+
+      .page-hero-inner {
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .page-title {
+        font-size: clamp(48px, 14vw, 80px);
+      }
+
+      .filter-bar {
+        gap: 6px;
+      }
+
+      .filter-btn {
+        padding: 8px 14px;
+        font-size: 9px;
+      }
+
+      /* Galería: 1 columna en móvil */
+      div[style*="repeat(3,1fr)"] {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+      }
+
+      .lightbox-content {
+        padding: 48px 20px 24px;
+        width: 96%;
+      }
+
+      .lb-title {
+        font-size: 32px;
+      }
+
+      #react-portfolio-filter {
+        padding: 4px 16px 48px !important;
+      }
     }
   </style>
 </head>
@@ -461,8 +538,18 @@
       const [lightbox, setLightbox] = useState(null);
 
       useEffect(() => {
+        // Cerrar con ESC
         function onKey(e) { if (e.key === 'Escape') setLightbox(null); }
         document.addEventListener('keydown', onKey);
+
+        // Abrir lightbox si la URL tiene #proyecto-N (viene desde index.html)
+        const hash = window.location.hash;
+        if (hash.startsWith('#proyecto-')) {
+          const id = parseInt(hash.replace('#proyecto-', ''));
+          const proyecto = PROYECTOS.find(p => p.id === id);
+          if (proyecto) setLightbox(proyecto);
+        }
+
         return () => document.removeEventListener('keydown', onKey);
       }, []);
 
