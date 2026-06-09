@@ -421,15 +421,14 @@
     }
   </style>
 
-  <!-- Netlify Forms-->
+  <!-- Form oculto para que Netlify detecte los campos en el deploy -->
   <form name="contacto" data-netlify="true" hidden>
     <input type="text" name="nombre" />
     <input type="text" name="empresa" />
     <input type="email" name="email" />
-    <select name="tipo"></select>
+    <select name="tipo"><option>-</option></select>
     <textarea name="mensaje"></textarea>
   </form>
-
 </head>
 <body>
 
@@ -546,7 +545,7 @@
     const { useState } = React;
 
     function ContactForm() {
-      const [fields, setFields] = useState({ nombre: '', email: '', tipo: '', mensaje: '' });
+      const [fields, setFields] = useState({ nombre: '', email: '', empresa: '', tipo: '', mensaje: '' });
       const [errors, setErrors] = useState({});
       const [enviado, setEnviado] = useState(false);
       const MAX_CHARS = 300;
@@ -569,9 +568,31 @@
 
       function handleSubmit(e) {
         e.preventDefault();
+
+        // Validar antes de enviar
         const newErrors = validate();
         if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return; }
-        setEnviado(true);
+
+        // Codificar los datos como URL-encoded — Netlify no acepta JSON
+        const encode = (data) =>
+          Object.keys(data)
+            .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+            .join('&');
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode({
+            'form-name': 'contacto',
+            nombre:  fields.nombre,
+            email:   fields.email,
+            empresa: fields.empresa || '',
+            tipo:    fields.tipo    || '',
+            mensaje: fields.mensaje,
+          }),
+        })
+          .then(() => setEnviado(true))
+          .catch(() => setErrors({ mensaje: 'Error al enviar. Intentá de nuevo.' }));
       }
 
       if (enviado) {
@@ -600,7 +621,8 @@
             </div>
             <div className="form-field">
               <label>Empresa</label>
-              <input type="text" name="empresa" placeholder="Nombre de la empresa" />
+              <input type="text" name="empresa" placeholder="Nombre de la empresa"
+                value={fields.empresa} onChange={handleChange} />
               <div className="field-bar"></div>
             </div>
           </div>
