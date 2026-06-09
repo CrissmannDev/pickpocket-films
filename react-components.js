@@ -1,26 +1,10 @@
-/* ═══════════════════════════════════════════════════════════
-   react-components.js — PickPocket Films
-   Componentes React compartidos entre páginas.
-   Requiere que el HTML que lo importe haya cargado antes:
-     - react.development.js
-     - react-dom.development.js
-     - babel standalone
-   ═══════════════════════════════════════════════════════════ */
+
 
 const { useState, useEffect } = React;
 
 
 /* ═══════════════════════════════════════════════════════════
    COMPONENTE 1: ContactForm
-   Usado en: contacto.html
-   Monta en: <div id="react-contact-form">
-
-   Demuestra:
-   - useState para cada campo del formulario
-   - Validación en tiempo real
-   - Renderizado condicional (form → éxito)
-   - Contador de caracteres en el textarea
-   - Integración con Netlify Forms (data-netlify)
    ═══════════════════════════════════════════════════════════ */
 function ContactForm() {
   const [fields, setFields] = useState({
@@ -63,7 +47,7 @@ function ContactForm() {
       <div className="form-success" id="formSuccess" style={{display:'block'}}>
         <div className="success-icon">✓</div>
         <div className="success-title">MENSAJE ENVIADO</div>
-        <p className="success-msg">Gracias, {fields.nombre}. Te contactamos pronto.</p>
+        <p className="success-msg">Gracias, {fields.nombre}. Te contactaremos pronto.</p>
       </div>
     );
   }
@@ -146,14 +130,6 @@ function ContactForm() {
 
 /* ═══════════════════════════════════════════════════════════
    COMPONENTE 2: PortfolioFilter
-   Usado en: portafolio.html
-   Monta en: <div id="react-portfolio-filter">
-
-   Demuestra:
-   - useState para el filtro activo
-   - .filter() y .map() sobre array de datos
-   - Componente hijo (ProjectCard) con props
-   - Contador de resultados reactivo
    ═══════════════════════════════════════════════════════════ */
 const PROYECTOS = [
   { id:1,  nombre:'UMBRAL',     categoria:'cortometraje', año:2024, ytId:'' },
@@ -296,14 +272,6 @@ function PortfolioFilter() {
 
 /* ═══════════════════════════════════════════════════════════
    COMPONENTE 3: CrewShowcase
-   Usado en: crew.html
-   Monta en: <div id="react-crew-cards">
-
-   Demuestra:
-   - useState para rastrear la tarjeta expandida
-   - Toggle: clic abre/cierra la bio
-   - Componente hijo (CrewCard) con props
-   - className dinámico según estado
    ═══════════════════════════════════════════════════════════ */
 const CREW_DATA = [
   { id:1, nombre:'SAMUEL BELTRÁN', rol:'Director',          iniciales:'SB', img:'Images/p.jpeg', bio:'Voz creativa detrás de cada proyecto.' },
@@ -383,9 +351,6 @@ function CrewShowcase() {
 
 /* ═══════════════════════════════════════════════════════════
    MONTAJE
-   Cada componente se monta solo si su div contenedor
-   existe en la página actual. Así el mismo archivo
-   funciona en crew, portafolio y contacto sin errores.
    ═══════════════════════════════════════════════════════════ */
 const mountContact   = document.getElementById('react-contact-form');
 const mountPortfolio = document.getElementById('react-portfolio-filter');
