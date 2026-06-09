@@ -1,0 +1,123 @@
+/* ── SHARED STYLES — PICKPOCKET FILMS ── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+ --black: #0d0608;
+  --white: #f5eef0;
+  --cream: #e8dade;
+   --gold: #9b2d46;
+  --gold-dim: #6e1f32;
+  --gray: #9a8f92;
+  --dark-panel: rgba(13,6,8,0.88);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 28px 48px 0;
+ background: linear-gradient(to bottom, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.7) 60%, transparent 100%);
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  padding-top: 4px;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.nav-logo span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: #050505;
+  padding: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.15em;
+  color: var(--gold-dim);
+}
+
+.footer-copy {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--gray);
+  opacity: 0.5;
+}
+
+/* ─── SEPARATORS ─── */
+.sep {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+}
+
+/* ─── BODY PADDING FOR FIXED NAV ─── */
+body { padding-top: 0; }

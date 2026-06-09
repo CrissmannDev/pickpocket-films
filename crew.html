@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crew — PickPocket Films</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .page-hero {
+      padding: 160px 48px 80px;
+      background: linear-gradient(135deg, #0a0907 0%, #080808 60%, #0c0a06 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent);
+    }
+
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+
+    .page-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(60px, 9vw, 120px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .page-intro {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--cream);
+      opacity: 0.8;
+      max-width: 580px;
+    }
+
+    /* DEPARTMENTS */
+    .crew-section {
+      padding: 72px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .dept-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .dept-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,168,76,0.15);
+    }
+
+    /* CREW GRID */
+    .crew-grid-main {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+
+    .crew-grid-secondary {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+    }
+
+    .crew-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 2/3;
+      background: #0f0d0a;
+      cursor: default;
+    }
+
+    /* La foto ocupa toda la tarjeta */
+    .crew-avatar {
+      position: absolute;
+      inset: 0;
+    }
+
+    .crew-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(1) brightness(0.75);
+      transition: filter 0.5s ease, transform 0.5s ease;
+      display: block;
+    }
+
+    .crew-card:hover .crew-avatar img {
+      filter: grayscale(0) brightness(0.88);
+      transform: scale(1.04);
+    }
+
+    /* Fallback sin foto */
+    .avatar-circle {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--gold);
+      opacity: 0.2;
+      background: linear-gradient(160deg, #181410 0%, #0a0908 100%);
+    }
+
+    /* Info superpuesta abajo */
+    .crew-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 48px 20px 22px;
+      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.5) 60%, transparent 100%);
+      z-index: 2;
+    }
+
+    .crew-role {
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .crew-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .crew-bio {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--cream);
+      margin-top: 8px;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .crew-card:hover .crew-bio {
+      opacity: 0.85;
+      max-height: 60px;
+    }
+
+    /* Secondary smaller cards */
+    .crew-grid-secondary .crew-card { aspect-ratio: 3/4; }
+    .crew-grid-secondary .crew-name { font-size: 17px; }
+    .crew-grid-secondary .crew-info { padding: 36px 16px 16px; }
+
+    /* SECTION DIVIDER */
+    .crew-divider {
+      margin: 64px 48px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.15), transparent);
+    }
+
+    /* PRODUCTION DEPT */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .prod-card {
+      padding: 36px 32px;
+      border: 1px solid rgba(201,168,76,0.07);
+      background: rgba(201,168,76,0.02);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .prod-card:hover {
+      background: rgba(201,168,76,0.05);
+      border-color: rgba(201,168,76,0.18);
+    }
+
+    .prod-initial {
+      font-family: var(--font-display);
+      font-size: 40px;
+      color: var(--gold);
+      opacity: 0.25;
+      margin-bottom: 16px;
+      transition: opacity 0.3s;
+    }
+
+    .prod-card:hover .prod-initial { opacity: 0.5; }
+
+    .prod-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .prod-role {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .prod-bio {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--cream);
+      opacity: 0.65;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-links">
+      <a href="nosotros.html">Nosotros</a>
+      <a href="crew.html" class="active">Crew</a>
+      <a href="portafolio.html">Portafolio</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+    <a href="index.html" class="nav-logo">
+     <img src="Images/logo.png" alt="Logo" style="height: 50px;width: auto;">
+    </a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-eyebrow">El equipo creativo</p>
+      <h1 class="page-title">NUESTRA<br>CREW</h1>
+      <p class="page-intro">
+        5 mentes creativas, un solo lenguaje: la calidad. 
+        Cada persona aquí trae una historia, una especialidad 
+        y una pasión que alimenta nuestra visión colectiva.
+      </p>
+    </div>
+  </div>
+
+  <!-- React monta las tarjetas de crew aquí — ver react-components.js -->
+  <div class="crew-section">
+    <div class="dept-label">los pibes</div>
+    <div id="react-crew-cards"></div>
+  </div>
+
+  
+
+  <!-- POSTPRODUCCIÓN -->
+  <div class="crew-section">
+    <div class="dept-label">Ayudantes</div>
+    <div class="crew-grid-main">
+
+      <div class="crew-card">
+        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
+        <div class="crew-info">
+          <div class="crew-role">ROL</div>
+          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
+          <p class="crew-bio"> Info</p>
+        </div>
+      </div>
+
+      <div class="crew-card">
+        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
+        <div class="crew-info">
+          <div class="crew-role">ROL</div>
+          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
+          <p class="crew-bio"> Info</p>
+        </div>
+      </div>
+
+      <div class="crew-card">
+        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
+        <div class="crew-info">
+          <div class="crew-role">ROL</div>
+          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
+          <p class="crew-bio"> Info</p>
+        </div>
+      </div>
+
+      <div class="crew-card">
+        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
+        <div class="crew-info">
+          <div class="crew-role">ROL</div>
+          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
+          <p class="crew-bio"> Info</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  
+
+  
+
+  <footer>
+    <img src="Images/logo.png" alt="Logo" style= "height: 50px;width: auto; opacity: 0.7;">
+    <div class="footer-copy">© 2026 PickPocket Films. Todos los derechos reservados.</div>
+  </footer>
+
+   <!-- SCROLL ANIMATIONS -->
+  <style>
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+  </style>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.page-eyebrow, .page-title, .page-intro, .dept-label, .crew-card, .prod-card').forEach(el => {
+      el.classList.add('reveal');
+      if (el.classList.contains('crew-card') || el.classList.contains('prod-card')) {
+        const pos = Array.from(el.parentElement.children).indexOf(el);
+        if (pos === 1) el.classList.add('reveal-delay-1');
+        if (pos === 2) el.classList.add('reveal-delay-2');
+        if (pos === 3) el.classList.add('reveal-delay-3');
+      }
+      observer.observe(el);
+    });
+  </script>
+
+
+  <!-- ─── REACT CDN ─── -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const CREW_DATA = [
+      { id:1, nombre:'SAMUEL BELTRÁN',     img:'Images/p.jpeg', bio:'AAAAAAAAAAAAAAAAAAAAAAAAAAAAA AS ASA EAEAEA EAJ S9Y USDNFS ' },
+      { id:2, nombre:'ANNA RICO',     img:'Images/p.jpeg', bio:'Ojo detrás de la cámara. Define la estética visual.' },
+      { id:3, nombre:'INÉS BELTRÁN', img:'Images/p.jpeg', bio:'Dirección de arte. Cada escena tiene su sello.' },
+      { id:4, nombre:'DAVID BASTIDAS',   img:'Images/p.jpeg', bio:'En postproducción transforma el material bruto.' },
+      { id:5, nombre:'LIZ ARIZA',     img:'Images/p.jpeg', bio:'Logística y recursos. Hace que todo suceda.' },
+    ];
+
+    function CrewCard({ miembro, expandida, onToggle }) {
+      return (
+        <div className="crew-card" style={{cursor:'pointer'}} onClick={onToggle}>
+          <div className="crew-avatar">
+            <img src={miembro.img} alt={miembro.nombre}
+              onError={e => e.target.style.display='none'} />
+          </div>
+          <button
+            onClick={e => { e.stopPropagation(); onToggle(); }}
+            style={{
+              position:'absolute', top:14, right:14,
+              width:30, height:30, borderRadius:'50%',
+              border:'1px solid rgba(155,45,70,0.4)',
+              background:'transparent', color:'var(--gold)',
+              fontSize:18, cursor:'pointer', zIndex:3,
+              display:'flex', alignItems:'center', justifyContent:'center',
+              transition:'all 0.3s'
+            }}
+          >
+            {expandida ? '−' : '+'}
+          </button>
+          <div className="crew-info">
+            <div className="crew-role">{miembro.rol}</div>
+            <div className="crew-name">{miembro.nombre}</div>
+            <p className="crew-bio" style={{
+              opacity:   expandida ? 0.85 : 0,
+              maxHeight: expandida ? '80px' : '0',
+              marginTop: expandida ? '8px' : '0',
+              overflow:  'hidden',
+              transition:'all 0.4s ease'
+            }}>
+              {miembro.bio}
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    function CrewShowcase() {
+      const [expandida, setExpandida] = useState(null);
+      function toggle(id) { setExpandida(prev => prev === id ? null : id); }
+      return (
+        <div className="crew-grid-main">
+          {CREW_DATA.map(m => (
+            <CrewCard key={m.id} miembro={m}
+              expandida={expandida === m.id}
+              onToggle={() => toggle(m.id)} />
+          ))}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('react-crew-cards')).render(<CrewShowcase />);
+  </script>
+
+</body>
+</html>
