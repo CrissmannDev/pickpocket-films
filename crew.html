@@ -303,40 +303,24 @@
     <div class="crew-grid-main">
 
       <div class="crew-card">
-        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
+        <div class="crew-avatar"><img src="Images/p.jpg" alt="Chala" onerror="this.style.display='none'"></div>
         <div class="crew-info">
-          <div class="crew-role">ROL</div>
-          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
-          <p class="crew-bio"> Info</p>
+          <div class="crew-role"></div>
+          <div class="crew-name">OSCAR CHALA</div>
+          <p class="crew-bio">Profesor del SENA</p>
         </div>
       </div>
 
       <div class="crew-card">
-        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
+        <div class="crew-avatar"><img src="Images/profe.jpg" alt="Chala" onerror="this.style.display='none'"></div>
         <div class="crew-info">
-          <div class="crew-role">ROL</div>
-          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
-          <p class="crew-bio"> Info</p>
+          <div class="crew-role"></div>
+          <div class="crew-name">VALENTINA TOVAR</div>
+          <p class="crew-bio">Profesora del SENA</p>
         </div>
       </div>
 
-      <div class="crew-card">
-        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
-        <div class="crew-info">
-          <div class="crew-role">ROL</div>
-          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
-          <p class="crew-bio"> Info</p>
-        </div>
-      </div>
-
-      <div class="crew-card">
-        <div class="crew-avatar"><img src="Images/p.jpeg" alt="Chala" onerror="this.style.display='none'"></div>
-        <div class="crew-info">
-          <div class="crew-role">ROL</div>
-          <div class="crew-name">NOMBRE NOMBRE JEJE</div>
-          <p class="crew-bio"> Info</p>
-        </div>
-      </div>
+      
 
     </div>
   </div>
@@ -386,11 +370,11 @@
     const { useState } = React;
 
     const CREW_DATA = [
-      { id:1, nombre:'SAMUEL BELTRÁN',     img:'Images/p.jpeg', bio:'AAAAAAAAAAAAAAAAA AS ASA EAEAEA EAJ S9Y USDNFS ' },
-      { id:2, nombre:'ANNA RICO',     img:'Images/p.jpeg', bio:'MARICONES' },
-      { id:3, nombre:'INÉS BELTRÁN', img:'Images/p.jpeg', bio:'MARICONES' },
-      { id:4, nombre:'DAVID BASTIDAS',   img:'Images/p.jpeg', bio:'MARICONES' },
-      { id:5, nombre:'LIZ ARIZA',     img:'Images/p.jpeg', bio:'MARICONES' },
+      { id:1, nombre:'SAMUEL BELTRÁN',     img:'Images/negruel.jpg', bio:'AAAAAAAAAAAAAAAAA AS ASA EAEAEA EAJ S9Y USDNFS ' },
+      { id:2, nombre:'ANNA RICO',     img:'Images/ana.jpg', bio:'MARICONES' },
+      { id:3, nombre:'INÉS BELTRÁN', img:'Images/ines.jpg', bio:'MARICONES' },
+      { id:4, nombre:'DAVID BASTIDAS',   img:'Images/david.jpg', bio:'MARICONES' },
+      { id:5, nombre:'LIZ ARIZA',     img:'Images/liz.jpg', bio:'MARICONES' },
     ];
 
     function CrewCard({ miembro, expandida, onToggle }) {
