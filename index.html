@@ -328,12 +328,12 @@
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      /* Arranca en blanco y negro completo */
+      
       filter: grayscale(1) brightness(0.7);
       transition: filter 0.5s ease, transform 0.6s ease;
     }
 
-    /* Al hover: imagen en color */
+    
     .crew-card:hover .crew-card-img {
       filter: grayscale(0) brightness(0.85);
     }
@@ -403,7 +403,7 @@
     .port-item:not(:first-child) { aspect-ratio: 4/3; }
 
     .port-placeholder {
-      /* El placeholder ya no se escala — ahora es solo el contenedor del texto */
+      
       position: relative;
       width: 100%;
       height: 100%;
@@ -415,7 +415,7 @@
       z-index: 1;
     }
 
-    /* La imagen de fondo se escala al hover */
+  
     .port-item > img {
       position: absolute;
       inset: 0;
@@ -432,7 +432,7 @@
       transform: scale(1.04);
     }
 
-    /* Fallback oscuro cuando no hay imagen */
+    /* Fallback cuando no imagen */
     .port-item-bg {
       position: absolute;
       inset: 0;
@@ -670,7 +670,6 @@
   <!-- BG VIDEO -->
   <section class="hero">
     <div class="hero-bg-fallback"></div>
-    <!-- reemplasar src -->
  <video class="hero-video" autoplay muted loop playsinline poster="">
        <source src="Images/meprovoca.mp4" type="video/mp4">
     </video>
