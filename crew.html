@@ -144,9 +144,15 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       padding: 48px 20px 22px;
-      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.5) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.75) 55%, rgba(8,8,8,0.1) 100%);
       z-index: 2;
+      transition: background 0.4s ease;
     }
+
+    /* Barra de scroll discreta */
+    .crew-bio::-webkit-scrollbar { width: 3px; }
+    .crew-bio::-webkit-scrollbar-track { background: transparent; }
+    .crew-bio::-webkit-scrollbar-thumb { background: rgba(155,45,70,0.5); border-radius: 2px; }
 
     .crew-role {
       font-family: var(--font-body);
@@ -371,11 +377,11 @@
     const { useState } = React;
 
     const CREW_DATA = [
-      { id:1, nombre:'SAMUEL BELTRÁN',     img:'Images/negruel.jpg', bio:'Voz creativa detrás de cada proyecto.' },
-      { id:2, nombre:'ANNA RICO',     img:'Images/ana.jpg', bio:'En postproducción transforma el material bruto.' },
-      { id:3, nombre:'INÉS BELTRÁN', img:'Images/ines.jpg', bio:'Dirección de arte. Cada escena tiene su sello.' },
-      { id:4, nombre:'DAVID BASTIDAS',   img:'Images/david.jpg', bio:'Ojo detrás de la cámara. Define la estética visual.' },
-      { id:5, nombre:'LIZ ARIZA',     img:'Images/liz.jpg', bio:'Logística y recursos. Hace que todo suceda.' },
+      { id:1, nombre:'SAMUEL BELTRÁN',     img:'Images/negruel.jpg', bio:'Inició su formación artística en 2017 como trompetista en la Escuela de Banda Sinfónica de El Rosal, Cundinamarca. En 2018 amplió su experiencia al ingresar a la Escuela de Teatro de su municipio y en 2019 se integró al colectivo El Parche Cundinamarca, con el que participó en múltiples proyectos culturales a nivel departamental. En 2024 hizo parte de la convocatoria Jóvenes Creadores de TransMilenio y fue semifinalista del festival SmartFilms. En 2025 obtuvo la beca Ciudadanías Juveniles Locales – Barrios Vivos, consolidando su experiencia en procesos culturales y comunitarios. En el marco del festival, su papel se centra en la promoción cultural, la articulación con públicos y la gestión de contenidos comunitarios.' },
+      { id:2, nombre:'ANNA RICO',     img:'Images/ana.jpg', bio:'Inició su formación musical en 2012 en el Conservatorio de Ibagué (Institución Educativa Técnica Musical Amina Melendro de Pulecio). En 2014 ingresó al Club del Talento y en 2015 se especializó en violín, participando en coros y agrupaciones de música de cámara en diversos festivales locales y regionales. En 2020 amplió su práctica hacia el piano y la percusión, y en 2023 integró la Orquesta Sinfónica Institucional del Conservatorio de Ibagué. Su experiencia también incluye dirección coral y orquestal. En 2024 culminó sus estudios en la EFAC como Técnico Laboral en Música Andina Colombiana y actualmente cursa el programa de Tecnología en Producción de Medios Audiovisuales Digitales en el SENA. Su trayectoria une música, audiovisual y gestión cultural, lo que constituye la base de su labor como coordinadora general del festival, encargada de articular el equipo y orientar la programación.  ' },
+      { id:3, nombre:'INÉS BELTRÁN', img:'Images/ines.jpg', bio:'Actriz en formación de la Academia de Artes Escénicas Charlot, donde cursa talleres de actuación básica e improvisación. Su trayectoria combina el ámbito audiovisual y teatral. En 2025 dirigió el cortometraje Descanso y la miniserie Monstruos, además de desempeñarse como directora de arte en el cortometraje Telos, seleccionado en SmartFilms. En el teatro ha participado en montajes dirigidos por Libardo Mejía, como Un llano en llamas y Sueño de una noche de verano. Actualmente cursa la Tecnología en Producción de Medios Audiovisuales Digitales en el SENA, articulando su formación actoral con la creación de proyectos audiovisuales. En el festival asume la coordinación de artes escénicas y la dirección de contenidos dramatúrgicos y audiovisuales.' },
+      { id:4, nombre:'DAVID BASTIDAS',   img:'Images/david.jpg', bio:'Realizador audiovisual con experiencia en fotografía cinematográfica y fotografía fija. En 2025 fue productor de la miniserie Todo estará bien y se desempeñó como director de fotografía y gaffer del cortometraje Descanso. Ese mismo año trabajó como asistente de producción junto al artista Daniel Calderón y fue camarógrafo en SmartFilms, donde participó como finalista. Actualmente es productor creativo de contenidos para las redes sociales de Ecos Visuales. Su formación incluye bases sólidas en edición de video y fotografía, además de talleres especializados impartidos por profesionales vinculados a la película "El abrazo de la serpiente", nominada al Óscar. Estudiante del programa de Tecnología en Producción de Medios Audiovisuales Digitales en el SENA, aporta al festival la dirección creativa en las áreas visuales, comunicativas y de producción audiovisual.' },
+      { id:5, nombre:'LIZ ARIZA',     img:'Images/liz.jpg', bio:'Diseñadora de Producción en formación, con enfoque en escenografía y construcción visual desde las artes plásticas hacia el audiovisual. Ha participado como productora en el filminuto Descanso y en el área de producción de campo del cortometraje CODA, además de apoyar la promoción de Telos en el Smartfilms 2025. Formó parte de un proyecto en Fontibón junto al colectivo Parche Creativo, donde obtuvo el primer puesto con su equipo. Actualmente cursa un tecnólogo en producción de medios audiovisuales en el SENA y trabaja como aprendiz de marketing en social media en More Products S.A.S. Su trabajo se orienta al cine independiente, con interés en la producción de piezas audiovisuales que conecten lo estético con lo emocional. En el festival, aporta desde la dirección de arte y el diseño de producción, fortaleciendo la identidad visual de los proyectos en torno a la salud mental juvenil.' },
     ];
 
     function CrewCard({ miembro, expandida, onToggle }) {
@@ -403,11 +409,15 @@
             <div className="crew-role">{miembro.rol}</div>
             <div className="crew-name">{miembro.nombre}</div>
             <p className="crew-bio" style={{
-              opacity:   expandida ? 0.85 : 0,
-              maxHeight: expandida ? '80px' : '0',
-              marginTop: expandida ? '8px' : '0',
-              overflow:  'hidden',
-              transition:'all 0.4s ease'
+              opacity:     expandida ? 1 : 0,
+              maxHeight:   expandida ? '180px' : '0',
+              marginTop:   expandida ? '8px' : '0',
+              overflowY:   expandida ? 'auto' : 'hidden',
+              overflowX:   'hidden',
+              paddingRight: expandida ? '6px' : '0',
+              transition:  'opacity 0.4s ease, max-height 0.4s ease',
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(155,45,70,0.5) transparent',
             }}>
               {miembro.bio}
             </p>
