@@ -643,6 +643,88 @@
       opacity: 0.5;
     }
 
+
+    /* ══════════════════════════════════════
+       RESPONSIVE MÓVIL — INDEX
+       ══════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* NAV: más compacto, sin desborde */
+      nav {
+        padding: 16px 20px 0;
+        align-items: center;
+      }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 10px; letter-spacing: 0.1em; }
+      .nav-logo img { height: 36px !important; }
+
+      /* HERO: video ocupa todo el ancho sin scroll horizontal */
+      .hero { width: 100vw; overflow: hidden; }
+      .hero-video { width: 100%; height: 100%; object-fit: cover; }
+      .hero-content { left: 20px; right: 20px; bottom: 10vh; }
+      .hero-title { font-size: clamp(48px, 13vw, 72px); }
+      .hero-sub { font-size: 15px; max-width: 100%; }
+      .hero-scroll { display: none; }
+
+      /* SECTIONS: padding reducido */
+      .section { padding: 56px 20px; }
+      .sep { margin: 0 20px; }
+
+      /* ABOUT: columna única */
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .section-title { font-size: clamp(36px, 10vw, 60px); }
+      .section-body { font-size: 16px; }
+
+      /* CREW: 1 columna en móvil */
+      .crew-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .crew-card { aspect-ratio: 4/3; }
+
+      /* PORTFOLIO: 1 columna */
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 6px;
+        margin-top: 24px;
+      }
+      .port-item:first-child {
+        grid-row: auto;
+        min-height: 220px;
+      }
+      .port-item:not(:first-child) { aspect-ratio: 4/3; }
+
+      /* CONTACT: columna única — info arriba, form abajo */
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 28px 20px;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav-links a { font-size: 9px; letter-spacing: 0.08em; }
+      .nav-links { gap: 10px; }
+      .hero-title { font-size: clamp(40px, 12vw, 56px); }
+      .crew-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── SEPARATOR ─── */
     .sep {
       height: 1px;
